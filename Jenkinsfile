@@ -1,12 +1,15 @@
-Jenkinsfile (Declarative Pipeline example)
 pipeline {
-    agent {
-        docker { image 'node:16.13.1-alpine' }
-    }
+    agent none
     stages {
-        stage('Test') {
+        stage('tf checking') {
+            agent {
+                docker {
+                    image 'hashicorp/terraform:latest'
+                }
+            }
             steps {
-                sh 'node --version'
+                sh 'terraform fmt -recursive'
+                
             }
         }
     }
